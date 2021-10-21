@@ -1,0 +1,85 @@
+<!--
+    File: index.html
+    GUI Assigment: Using the jQuery Plugin/UI with Your Dynamic Table - PART 2: jQuery UI Slider and Tab Widgets
+    Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
+    Copyright (C) 2021 by Minh Le. 
+    Updated by ML on October 20, 2021 at 7:00pm
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 4 - Part 2</title>
+    <!-- CSS -->
+    <link href="css/hw4.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="control">
+            <div id="createTable">
+                <form id="createTableForm">
+                    <fieldset>
+                        <legend>
+                            Enter size of the table:
+                        </legend>
+                        <p>Vertical (multiplicand)</p>
+                        <label>
+                            Start:
+                            <input type="text" id="fCol" name="fCol" size="1"></input>
+                        </label>
+                        <div id="fColSlider">
+                            <div id="custom-handle-fCol" class="ui-slider-handle"></div>
+                        </div>
+
+                        <label>
+                            End:
+                            <input type="text" id="eCol" name="eCol" size="1">
+                        </label>
+                        <div id="eColSlider">
+                            <div id="custom-handle-eCol" class="ui-slider-handle"></div>
+                        </div>
+
+                        <p>Horizontal (multiplier)</p>
+                        <label>
+                            Start:
+                            <input type="text" id="fRow" name="fRow" size="1">
+                        </label>
+                        <div id="fRowSlider">
+                            <div id="custom-handle-fRow" class="ui-slider-handle"></div>
+                        </div>
+
+                        <label>
+                            End:
+                            <input type="text" id="eRow" name="eRow" size="1">
+                        </label>
+                        <div id="eRowSlider">
+                            <div id="custom-handle-eRow" class="ui-slider-handle"></div>
+                        </div>
+                        <p>Notice: <em>Press unselected tab to stop update table.</em></p>
+                        <button id="btnGen" type="button">Generate</button>
+                        <button id="btnUnselected" type="button">Unselected Tab</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="removed">
+                <label for="tabs">Choose a tab</label>
+                <select id="tabs" name="tabs" multiple></select>
+                <p>Press Ctrl (windows) or Command (Mac) to select multiple tabs.</p>
+                <p>Press (Ctrl + A) (windows) or (Command + A) (Mac) to select all of tabs.</p>
+                <button id="btnRemove" type="button">Remove Tab</button>
+            </div>
+        </div>
+        <div id='myTabs'><ul></ul></div>
+    </div>
+     <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"
+        integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
+    <script src="js/hw4.js"></script>
+</body>
+
+</html>

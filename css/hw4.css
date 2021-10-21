@@ -1,0 +1,168 @@
+/*
+    File: hw3.css
+    GUI Assigment: Creating an Interactive Dynamic Table
+    Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
+    Copyright (C) 2021 by Minh Le. 
+    Updated by ML on September 26, 2021 at 7:00pm
+*/
+
+#wrapper {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+    width: 480px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+legend {
+    font-size: 120%;
+}
+
+fieldset {
+    text-align: center;
+}
+
+p:nth-child(7) {
+    margin-top: 20px;
+}
+
+.ui-widget.ui-widget-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* content of the table is middle */
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+}
+
+/* Measure the table is readable */
+
+td {
+    max-width: 150px;
+    height: 50px;
+    min-width: 50px;
+}
+
+/* 
+    Style for first row (TOP HEADER) 
+    Top header is fixed at top
+    Make the border right is white, except the last square
+*/
+
+table > tr:first-child {
+    background-color: black;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+table > tr:first-child > td {
+    border-right: 2px solid white;
+    border-top: none;
+}
+
+table > tr > td:last-child {
+    border-right: 1px solid black;
+}
+
+/*
+    Style for first row (LEFT HEADER) 
+    Left header is fixed at top
+    Make the border right is white, except the last square
+*/
+
+table > tr:first-child > td:first-child {
+    background-color: white;
+}
+
+table > tr > td:first-child {
+    background-color: black;
+    color: white;
+    border-bottom: 2px solid white;
+    position: sticky;
+    left: 0;
+}
+
+table > tr:last-child > td {
+    border-bottom: 1px solid black;
+}
+
+table > tr:nth-child(1) > td:first-child {
+    border: none;
+}
+
+/* Display the table's content with yellow background (chequered)*/
+
+table > tr:not(tr:first-child):nth-child(odd) > td:not(td:first-child):nth-child(even) {
+    background-color: yellow;
+}
+
+table > tr:not(tr:first-child):nth-child(even) > td:not(td:first-child):nth-child(odd) {
+    background-color: yellow;
+}
+
+#fCol, #eCol, #fRow, #eRow {
+    border-radius: 25px;
+    text-align: center;
+}
+
+#fColSlider, #eColSlider, #fRowSlider, #eRowSlider {
+    width: 380px;
+    margin: 15px auto 15px auto;
+}
+
+#custom-handle-fCol, #custom-handle-eCol, #custom-handle-fRow, #custom-handle-eRow {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+    margin-left: -6px;
+    color: #ffffff;
+    background-color: #007fff;
+}
+
+button, #btnGen {
+    background-color: #007fff;
+    color: #ffffff;
+    width: 200px;
+    height: 35px;
+    font-size: 16pt;
+    cursor: pointer;
+}
+
+/* Style for validation labels */
+
+#fCol-error, #eCol-error, #fRow-error, #eRow-error, #inputNumTabs-error, #update-error {
+    color: red;
+    margin-top: 10px;
+    display: block;
+}
+
+#control {
+    overflow: auto;
+}
+
+#createTable {
+    width: 50%;
+    float: left;
+}
+
+#removed {
+    width: 50%;
+    text-align: center;
+    float: right;
+}
+
+select {
+    display: block;
+    margin: 10px auto;
+    height: 237px;
+}
