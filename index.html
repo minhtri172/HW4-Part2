@@ -58,7 +58,7 @@
                         <div id="eRowSlider">
                             <div id="custom-handle-eRow" class="ui-slider-handle"></div>
                         </div>
-                        <p>Notice: <em>Press unselected tab to stop update table.</em></p>
+                        <p>Notice: <em>Press unselected tab to create a new table with new values.</em></p>
                         <button id="btnGen" type="button">Generate</button>
                         <button id="btnUnselected" type="button">Unselected Tab</button>
                     </fieldset>
@@ -68,13 +68,14 @@
                 <label for="tabs">Choose a tab</label>
                 <select id="tabs" name="tabs" multiple></select>
                 <p>Press Ctrl (windows) or Command (Mac) to select multiple tabs.</p>
-                <p>Press (Ctrl + A) (windows) or (Command + A) (Mac) to select all of tabs.</p>
                 <button id="btnRemove" type="button">Remove Tab</button>
             </div>
         </div>
-        <div id='myTabs'><ul></ul></div>
+        <div id='myTabs'>
+            <ul></ul>
+        </div>
     </div>
-     <!-- JavaScript -->
+    <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"

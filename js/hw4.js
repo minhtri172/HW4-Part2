@@ -6,28 +6,19 @@
     Updated by ML on October 20, 2021 at 7:00pm
 */
 
-$(document).ready(function ($) {
+$(document).ready(function () {
     // Hide remove part
     $("#removed").hide();
     $("#myTabs").hide();
 
-    // Select square values from sliders
     // Reference from :https://jqueryui.com/slider/#custom-handle
-    var handleFCol = $("#custom-handle-fCol");
-    var handleECol = $("#custom-handle-eCol");
-    var handleFRow = $("#custom-handle-fRow");
-    var handleERow = $("#custom-handle-eRow");
-
     // Slider for start column
     $("#fColSlider").slider({
         min: -50,
         max: 50,
-        create: function () {
-            handleFCol.text($(this).slider("value"));
-        },
         slide: function (event, ui) {
             $("#fCol").val(ui.value); // get value from slider and set it to fCol input
-            handleFCol.text(ui.value); // get value from slider and set it to square box in slider
+            $("#custom-handle-fCol").text(ui.value); // get value from slider and set it to square box in slider
             updateTable(); // update the table
         }
     });
@@ -37,7 +28,7 @@ $(document).ready(function ($) {
         var fCol = $("#fCol").val(); // get first column value
         if (fCol >= -50 && fCol <= 50) { // measure the box values in the slider is in the range[-50, 50]
             $("#fColSlider").slider("value", fCol); // set value from textbox to slider
-            handleFCol.text(fCol); // set value to the box values in the slider
+            $("#custom-handle-fCol").text(fCol); // set value to the box values in the slider
             updateTable(); // update the table
         }
     });
@@ -47,12 +38,9 @@ $(document).ready(function ($) {
     $("#eColSlider").slider({
         min: -50,
         max: 50,
-        create: function () {
-            handleECol.text($(this).slider("value"));
-        },
         slide: function (event, ui) {
             $("#eCol").val(ui.value);
-            handleECol.text(ui.value);
+            $("#custom-handle-eCol").text(ui.value);
             updateTable();
         }
     });
@@ -62,7 +50,7 @@ $(document).ready(function ($) {
         var eCol = $("#eCol").val();
         if (eCol >= -50 && eCol <= 50) {
             $("#eColSlider").slider("value", eCol);
-            handleECol.text(eCol);
+            $("#custom-handle-eCol").text(eCol);
             updateTable();
         }
     });
@@ -71,12 +59,9 @@ $(document).ready(function ($) {
     $("#fRowSlider").slider({
         min: -50,
         max: 50,
-        create: function () {
-            handleFRow.text($(this).slider("value"));
-        },
         slide: function (event, ui) {
             $("#fRow").val(ui.value);
-            handleFRow.text(ui.value);
+            $("#custom-handle-fRow").text(ui.value);
             updateTable();
         }
     });
@@ -86,7 +71,7 @@ $(document).ready(function ($) {
         var fRow = $("#fRow").val();
         if (fRow >= -50 && fRow <= 50) {
             $("#fRowSlider").slider("value", fRow);
-            handleFRow.text(fRow);
+            $("#custom-handle-fRow").text(fRow);
             updateTable();
         }
     });
@@ -95,12 +80,9 @@ $(document).ready(function ($) {
     $("#eRowSlider").slider({
         min: -50,
         max: 50,
-        create: function () {
-            handleERow.text($(this).slider("value"));
-        },
         slide: function (event, ui) {
             $("#eRow").val(ui.value);
-            handleERow.text(ui.value);
+            $("#custom-handle-eRow").text(ui.value);
             updateTable();
         }
     });
@@ -110,66 +92,94 @@ $(document).ready(function ($) {
         var eRow = $("#eRow").val();
         if (eRow >= -50 && eRow <= 50) {
             $("#eRowSlider").slider("value", eRow);
-            handleERow.text(eRow);
+            $("#custom-handle-eRow").text(eRow);
             updateTable();
         }
     });
 
-    // Add new method to validation
-    // Measure the input is an integer
+    // Validation part (re-used from part-1)
+    // Add new method to validation (check if the number is an integer or not)
     $.validator.addMethod("integerNumber", function (value, element) {
         return Number.isInteger(Number(value));
-    }, "Please enter an integer number.");
+    }, "Error: This number is decimal. Please enter an integer number.");
 
-    // Validation form create table
-    // Re-used part-1
+    // referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
+    $.validator.addMethod("startZeros", function (value, element) {
+        return !value.match(/^(?:0|00|-0|-00)\d+$/);
+    }, "Error: This number start with 0 or 00. Please remove 0s at the beginning.");
+
+    // referene: https://stackoverflow.com/questions/6067592/regular-expression-to-match-only-alphabetic-characters/6067604
+    $.validator.addMethod("notAlphabet", function (value, element) {
+        return !value.match(/[a-zA-Z]/);
+    }, "Error: This number contains alphabets. Please remove them.");
+
+    /* ################################################
+       #    Validate the form:
+       #    1. no blank field.
+       #    2. input is not alphabets
+       #    3. input is not special characters
+       #    4. input must be in the range [-50, 50]
+       #    5. input must be an integer number
+       #    6. input cannot start with 0 or 00
+       ################################################
+    */
     $("#createTableForm").validate({
         rules: {
-            fCol: {
+            fCol: { // first column input
                 required: true,
+                notAlphabet: true,
                 number: true,
                 range: [-50, 50],
-                integerNumber: true
+                integerNumber: true,
+                startZeros: true
             },
-            eCol: {
+            eCol: { // end column input
                 required: true,
+                notAlphabet: true,
                 number: true,
                 range: [-50, 50],
-                integerNumber: true
+                integerNumber: true,
+                startZeros: true
             },
-            fRow: {
+            fRow: { // first row input
                 required: true,
+                notAlphabet: true,
                 number: true,
                 range: [-50, 50],
-                integerNumber: true
+                integerNumber: true,
+                startZeros: true
             },
-            eRow: {
+            eRow: { // end row input
                 required: true,
+                notAlphabet: true,
                 number: true,
                 range: [-50, 50],
-                integerNumber: true
+                integerNumber: true,
+                startZeros: true
             }
         },
+
+        // Config error messages
         messages: {
-            fCol: {
-                required: "Please enter a start column number.",
-                number: "Please enter a number.",
-                range: "Please enter a number between -50 and 50."
+            fCol: { // first column input
+                required: "Error: This field is required. Please enter an integer number.",
+                number: "Error: This number contains special characters. Please remove them.",
+                range: "Error: This number is outside of the range[-50, 50]. Please enter a number between -50 and 50."
             },
-            eCol: {
-                required: "Please enter a end column number.",
-                number: "Please enter a number.",
-                range: "Please enter a number between -50 and 50."
+            eCol: { // end column input
+                required: "Error: This field is required. Please enter an integer number.",
+                number: "Error: This number contains special characters. Please remove them.",
+                range: "Error: This number is outside of the range[-50, 50]. Please enter a number between -50 and 50."
             },
-            fRow: {
-                required: "Please enter a start row number.",
-                number: "Please enter a number.",
-                range: "Please enter a number between -50 and 50."
+            fRow: { // first row input
+                required: "Error: This field is required. Please enter an integer number.",
+                number: "Error: This number contains special characters. Please remove them.",
+                range: "Error: This number is outside of the range[-50, 50]. Please enter a number between -50 and 50."
             },
-            eRow: {
-                required: "Please enter a end row number.",
-                number: "Please enter a number.",
-                range: "Please enter a number between -50 and 50."
+            eRow: { // end row input
+                required: "Error: This field is required. Please enter an integer number.",
+                number: "Error: This number contains special characters. Please remove them.",
+                range: "Error: This number is outside of the range[-50, 50]. Please enter a number between -50 and 50."
             }
         }
     });
@@ -217,7 +227,7 @@ $(document).ready(function ($) {
                     //console.log(data);
                     values = data.split(" "); // split by space
                     //console.log(values);
-                    
+
                     // After I debug the value "values", I saw the index of 4 values is 1, 2, 4, and 5
                     var fCol = values[1]; // first column
                     var eCol = values[2]; // end column
@@ -225,20 +235,7 @@ $(document).ready(function ($) {
                     var eRow = values[5]; // end row
 
                     // Set values to inputs
-                    $("#fCol").val(fCol);
-                    $("#eCol").val(eCol);
-                    $("#fRow").val(fRow);
-                    $("#eRow").val(eRow);
-
-                    // Set values to sliders
-                    $("#fColSlider").slider("option", "value", fCol);
-                    handleFCol.text(fCol);
-                    $("#eColSlider").slider("option", "value", eCol);
-                    handleECol.text(eCol);
-                    $("#fRowSlider").slider("option", "value", fRow);
-                    handleFRow.text(fRow);
-                    $("#eRowSlider").slider("option", "value", eRow);
-                    handleERow.text(eRow);
+                    setValueToForm(fCol, eCol, fRow, eRow);
                 }
             }
         });
@@ -257,6 +254,16 @@ $(document).ready(function ($) {
             // remove values on select tag
             $("#tabs option[value='" + index + "']").remove();
             $("#myTabs").tabs("refresh");
+
+            // if there is no data on select tag
+            if ($("#tabs option").length == 0) {
+                // hide remove part
+                $("#removed").hide();
+                $("#myTabs").hide();
+
+                // Remove values from the form
+                setValueToForm("", "", "", "");
+            }
         });
 
         // Check if the form is valid
@@ -302,7 +309,7 @@ $(document).ready(function ($) {
 
                 // Create the table
                 createTable(fCol, eCol, fRow, eRow, -1);
-                
+
                 // Active a tab
                 var tab = $(".ui-tabs-nav li").length;
                 //console.log(tab); 
@@ -335,20 +342,7 @@ $(document).ready(function ($) {
             $("#myTabs").hide();
 
             // Remove values from the form
-            $("#fCol").val([]);
-            $("#eCol").val([]);
-            $("#fRow").val([]);
-            $("#eRow").val([]);
-
-            handleFCol.text("0");
-            handleECol.text("0");
-            handleFRow.text("0");
-            handleERow.text("0");
-
-            $("#fColSlider").slider("option", "value", 0);
-            $("#eColSlider").slider("option", "value", 0);
-            $("#fRowSlider").slider("option", "value", 0);
-            $("#eRowSlider").slider("option", "value", 0);
+            setValueToForm("", "", "", "");
         }
     });
 
@@ -383,20 +377,7 @@ $(document).ready(function ($) {
             var eRow = values[5];
 
             // Set values to inputs
-            $("#fCol").val(fCol);
-            $("#eCol").val(eCol);
-            $("#fRow").val(fRow);
-            $("#eRow").val(eRow);   
-
-            // Set values to sliders
-            $("#fColSlider").slider("option", "value", fCol);
-            handleFCol.text(fCol);
-            $("#eColSlider").slider("option", "value", eCol);
-            handleECol.text(eCol);
-            $("#fRowSlider").slider("option", "value", fRow);
-            handleFRow.text(fRow);
-            $("#eRowSlider").slider("option", "value", eRow);
-            handleERow.text(eRow);
+            setValueToForm(fCol, eCol, fRow, eRow);
         }
     });
 
@@ -411,21 +392,26 @@ $(document).ready(function ($) {
             });
         }
 
-        $("#fCol").val([]);
-        $("#eCol").val([]);
-        $("#fRow").val([]);
-        $("#eRow").val([]);
-
-        handleFCol.text("0");
-        handleECol.text("0");
-        handleFRow.text("0");
-        handleERow.text("0");
-
-        $("#fColSlider").slider("option", "value", 0);
-        $("#eColSlider").slider("option", "value", 0);
-        $("#fRowSlider").slider("option", "value", 0);
-        $("#eRowSlider").slider("option", "value", 0);
+        setValueToForm("", "", "", "");
     });
+
+    // Set values to the form
+    function setValueToForm(fCol, eCol, fRow, eRow) {
+        $("#fCol").val(fCol);
+        $("#eCol").val(eCol);
+        $("#fRow").val(fRow);
+        $("#eRow").val(eRow);
+
+        $("#custom-handle-fCol").text(fCol);
+        $("#custom-handle-eCol").text(eCol);
+        $("#custom-handle-fRow").text(fRow);
+        $("#custom-handle-eRow").text(eRow);
+
+        $("#fColSlider").slider("option", "value", fCol);
+        $("#eColSlider").slider("option", "value", eCol);
+        $("#fRowSlider").slider("option", "value", fRow);
+        $("#eRowSlider").slider("option", "value", eRow);
+    }
 
     // Update table
     function updateTable() {
