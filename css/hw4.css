@@ -3,45 +3,48 @@
     GUI Assigment: Creating an Interactive Dynamic Table
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on September 26, 2021 at 7:00pm
+    Updated by ML on November 1, 2021 at 7:00pm
 */
 
 #wrapper {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Display form in the middle */
 form {
     width: 480px;
     margin-right: auto;
     margin-left: auto;
 }
 
+/* Increase lengend size */
 legend {
     font-size: 120%;
 }
 
+/* everything in the form are center */
 fieldset {
     text-align: center;
 }
 
+/* margin top "Horizontal (multiplier)" on the form */
 p:nth-child(7) {
     margin-top: 20px;
 }
 
+/* margin div contains tabs */
 .ui-widget.ui-widget-content {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 /* content of the table is middle */
-
 table {
     text-align: center;
     border-collapse: collapse;
 }
 
 /* Measure the table is readable */
-
 td {
     max-width: 150px;
     height: 50px;
@@ -53,7 +56,6 @@ td {
     Top header is fixed at top
     Make the border right is white, except the last square
 */
-
 table > tr:first-child {
     background-color: black;
     color: white;
@@ -67,16 +69,16 @@ table > tr:first-child > td {
     border-top: none;
 }
 
+/* make the right boder around of the table */
 table > tr > td:last-child {
     border-right: 1px solid black;
 }
 
 /*
     Style for first row (LEFT HEADER) 
-    Left header is fixed at top
+    Left header is fixed at left
     Make the border right is white, except the last square
 */
-
 table > tr:first-child > td:first-child {
     background-color: white;
 }
@@ -89,29 +91,32 @@ table > tr > td:first-child {
     left: 0;
 }
 
+/* make the bottom boder around of the table */
 table > tr:last-child > td {
     border-bottom: 1px solid black;
 }
 
-table > tr:nth-child(1) > td:first-child {
-    border: none;
-}
-
 /* Display the table's content with yellow background (chequered)*/
-
+/* skip the top header, pick the odd tr, then skip the left header, then pick the even td */
 table > tr:not(tr:first-child):nth-child(odd) > td:not(td:first-child):nth-child(even) {
     background-color: yellow;
 }
 
+/* skip the top header, pick the even tr, then skip the left header, then pick the odd td */
 table > tr:not(tr:first-child):nth-child(even) > td:not(td:first-child):nth-child(odd) {
     background-color: yellow;
 }
 
+/* Style for inputs */
 #fCol, #eCol, #fRow, #eRow {
     border-radius: 25px;
     text-align: center;
 }
 
+/* 
+    Style for slider bars
+    Reference from :https://jqueryui.com/slider/#custom-handle 
+*/
 #fColSlider, #eColSlider, #fRowSlider, #eRowSlider {
     width: 380px;
     margin: 15px auto 15px auto;
@@ -129,6 +134,7 @@ table > tr:not(tr:first-child):nth-child(even) > td:not(td:first-child):nth-chil
     background-color: #007fff;
 }
 
+/* Style for buttons */
 button, #btnGen {
     background-color: #007fff;
     color: #ffffff;
@@ -139,30 +145,45 @@ button, #btnGen {
 }
 
 /* Style for validation labels */
-
 #fCol-error, #eCol-error, #fRow-error, #eRow-error, #inputNumTabs-error, #update-error {
     color: red;
     margin-top: 10px;
     display: block;
 }
 
+/* Div contains the control part, the form and the selection*/
 #control {
     overflow: auto;
 }
 
+/* Style for the form */
 #createTable {
-    width: 50%;
-    float: left;
+    margin: 0 auto;
 }
 
+/* Style for selection part, select to delete tables */
 #removed {
-    width: 50%;
     text-align: center;
-    float: right;
+    margin: 20px auto;
 }
 
 select {
     display: block;
     margin: 10px auto;
     height: 237px;
+}
+
+/* For screen size >= 992px */
+@media only screen and (min-width: 992px) {
+    /* Style for selection part, select to delete tables */
+    #removed {
+        width: 50%;
+        float: right;
+    }
+
+    /* Style for the form */
+    #createTable {
+        width: 50%;
+        float: left;
+    }
 }

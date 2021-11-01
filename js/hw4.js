@@ -3,7 +3,7 @@
     GUI Assigment: Using the jQuery Plugin/UI with Your Dynamic Table - PART 2: jQuery UI Slider and Tab Widgets
     Minh Le, Umass Lowell Computer Science, minhtri_le@student.uml.edu
     Copyright (C) 2021 by Minh Le. 
-    Updated by ML on October 20, 2021 at 7:00pm
+    Updated by ML on November 1, 2021 at 7:00pm
 */
 
 $(document).ready(function () {
@@ -11,8 +11,16 @@ $(document).ready(function () {
     $("#removed").hide();
     $("#myTabs").hide();
 
-    // Reference from :https://jqueryui.com/slider/#custom-handle
-    // Slider for start column
+
+    /*
+    ################################################################## 
+    #     Reference from :https://jqueryui.com/slider/#custom-handle
+    #     Slider for start column
+    #     Min value: -50 and Max value: 50
+    #     Get the value from the slider and set it to the input text
+    #     The table is updated if the values change
+    ###################################################################
+    */
     $("#fColSlider").slider({
         min: -50,
         max: 50,
@@ -23,7 +31,13 @@ $(document).ready(function () {
         }
     });
 
-    // Display value from input to slider
+    /* 
+    #######################################################    
+    #    Display value from input to slider
+    #    The value of slider update when number is entered
+    #    The table is updated if the values change
+    #######################################################
+   */
     $("#fCol").keyup(function () {
         var fCol = $("#fCol").val(); // get first column value
         if (fCol >= -50 && fCol <= 50) { // measure the box values in the slider is in the range[-50, 50]
@@ -33,8 +47,15 @@ $(document).ready(function () {
         }
     });
 
-    // Same thing for 3 values left
-    // Slider for end column
+    /*
+    ################################################################## 
+    #     Reference from :https://jqueryui.com/slider/#custom-handle
+    #     Slider for end column
+    #     Min value: -50 and Max value: 50
+    #     Get the value from the slider and set it to the input text
+    #     The table is updated if the values change
+    ###################################################################
+    */
     $("#eColSlider").slider({
         min: -50,
         max: 50,
@@ -45,7 +66,13 @@ $(document).ready(function () {
         }
     });
 
-    // Display value from input to slider
+    /* 
+    #######################################################    
+    #    Display value from input to slider
+    #    The value of slider update when number is entered
+    #    The table is updated if the values change
+    #######################################################
+    */
     $("#eCol").keyup(function () {
         var eCol = $("#eCol").val();
         if (eCol >= -50 && eCol <= 50) {
@@ -55,7 +82,15 @@ $(document).ready(function () {
         }
     });
 
-    // Slider for start row
+    /*
+    ################################################################## 
+    #     Reference from :https://jqueryui.com/slider/#custom-handle
+    #     Slider for start row
+    #     Min value: -50 and Max value: 50
+    #     Get the value from the slider and set it to the input text
+    #     The table is updated if the values change
+    ###################################################################
+    */
     $("#fRowSlider").slider({
         min: -50,
         max: 50,
@@ -66,7 +101,13 @@ $(document).ready(function () {
         }
     });
 
-    // Display value from input to slider
+    /* 
+    #######################################################    
+    #    Display value from input to slider
+    #    The value of slider update when number is entered
+    #    The table is updated if the values change
+    #######################################################
+   */
     $("#fRow").keyup(function () {
         var fRow = $("#fRow").val();
         if (fRow >= -50 && fRow <= 50) {
@@ -76,7 +117,15 @@ $(document).ready(function () {
         }
     });
 
-    // Slider for end row
+    /*
+    ################################################################## 
+    #     Reference from :https://jqueryui.com/slider/#custom-handle
+    #     Slider for end column
+    #     Min value: -50 and Max value: 50
+    #     Get the value from the slider and set it to the input text
+    #     The table is updated if the values change
+    ###################################################################
+    */
     $("#eRowSlider").slider({
         min: -50,
         max: 50,
@@ -87,7 +136,13 @@ $(document).ready(function () {
         }
     });
 
-    // Display value from input to slider
+    /* 
+    #######################################################    
+    #    Display value from input to slider
+    #    The value of slider update when number is entered
+    #    The table is updated if the values change
+    #######################################################
+   */
     $("#eRow").keyup(function () {
         var eRow = $("#eRow").val();
         if (eRow >= -50 && eRow <= 50) {
@@ -97,31 +152,46 @@ $(document).ready(function () {
         }
     });
 
-    // Validation part (re-used from part-1)
-    // Add new method to validation (check if the number is an integer or not)
+    /*
+    #############################################################################
+    #     Validation part (re-used from part-1)
+    #     Add new method to validation (check if the number is an integer or not)
+    #############################################################################
+    */
     $.validator.addMethod("integerNumber", function (value, element) {
         return Number.isInteger(Number(value));
     }, "Error: This number is decimal. Please enter an integer number.");
 
-    // referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
+    /*
+    ###############################################################################################
+    #     referene: https://stackoverflow.com/questions/26484914/check-if-number-start-with-0-or-00
+    #     Add new method to validation, check if the input start with 0 or 00
+    ###############################################################################################
+   */
     $.validator.addMethod("startZeros", function (value, element) {
         return !value.match(/^(?:0|00|-0|-00)\d+$/);
     }, "Error: This number start with 0 or 00. Please remove 0s at the beginning.");
 
-    // referene: https://stackoverflow.com/questions/6067592/regular-expression-to-match-only-alphabetic-characters/6067604
+    /*
+    ##########################################################################################################################
+    #     referene: https://stackoverflow.com/questions/6067592/regular-expression-to-match-only-alphabetic-characters/6067604
+    #     Add new method to validation, check if the input is alphabet
+    ##########################################################################################################################
+   */
     $.validator.addMethod("notAlphabet", function (value, element) {
         return !value.match(/[a-zA-Z]/);
     }, "Error: This number contains alphabets. Please remove them.");
 
-    /* ################################################
-       #    Validate the form:
-       #    1. no blank field.
-       #    2. input is not alphabets
-       #    3. input is not special characters
-       #    4. input must be in the range [-50, 50]
-       #    5. input must be an integer number
-       #    6. input cannot start with 0 or 00
-       ################################################
+    /* 
+    ################################################
+    #    Validate the form:
+    #    1. no blank field.
+    #    2. input is not alphabets
+    #    3. input is not special characters
+    #    4. input must be in the range [-50, 50]
+    #    5. input must be an integer number
+    #    6. input cannot start with 0 or 00
+    ################################################
     */
     $("#createTableForm").validate({
         rules: {
@@ -184,16 +254,31 @@ $(document).ready(function () {
         }
     });
 
-    // This variable uses to create tabs
-    // It must be global to measure
-    // There is no mess up index, if a user deletes tab
+    /* 
+    ######################################################
+    #   This variable uses to create tabs
+    #   It must be global to measure
+    #   There is no mess up index, if a user deletes tab
+    ######################################################
+    */
     var NUM_TABS = 1; // index of each tabs
 
-    // Button generate (Create Table)
+    /*
+    ################################################################################################################# 
+    #   Button generate (Create Table)
+    #   If the form is valid, create the table; otherwise, print error messages
+    #################################################################################################################
+    */
     $("#btnGen").click(function () {
-        // Display tab
-        // Reference from: https://stackoverflow.com/questions/300078/jquery-ui-tabs-how-to-get-currently-selected-tab-index
-        // Reference from: https://stackoverflow.com/questions/4864620/how-to-use-jquery-to-select-a-dropdown-option
+        /* 
+        ################################################################################################################
+        #   Display tab
+        #   When the tab is active, update the values to the form
+        #   Reference: https://stackoverflow.com/questions/300078/jquery-ui-tabs-how-to-get-currently-selected-tab-index
+        #   Reference: https://stackoverflow.com/questions/4864620/how-to-use-jquery-to-select-a-dropdown-option
+        #   Regerence: https://stackoverflow.com/questions/1862130/strip-all-non-numeric-characters-from-string-in-javascript
+        ###################################################################################################################
+        */
         $("#myTabs").tabs({
             // This function will be called, if the tab is active
             activate: function (event, ui) {
@@ -221,7 +306,6 @@ $(document).ready(function () {
                         }
                     }
 
-                    // https://stackoverflow.com/questions/1862130/strip-all-non-numeric-characters-from-string-in-javascript
                     // Remove non-numeric
                     data = data.replace(/[^\d .-]/g, '');
                     //console.log(data);
@@ -240,8 +324,13 @@ $(document).ready(function () {
             }
         });
 
-        // Close icon: removing the tab on click
-        // Reference from: https://jqueryui.com/tabs/#manipulation
+        /*
+        ##################################################################### 
+        #   Close icon (top right of the tab): removing the tab on click
+        #   Close the tab
+        #   Reference: https://jqueryui.com/tabs/#manipulation
+        #####################################################################
+        */
         $("#myTabs").tabs().on("click", "span.ui-icon-close", function () {
             var panelId = $(this).closest("li").remove().attr("aria-controls");
             //console.log(panelId);
@@ -280,7 +369,11 @@ $(document).ready(function () {
             var fRow = $("#fRow").val();
             var eRow = $("#eRow").val();
 
-            // Setup to create multiple tabs
+            /*
+            ####################################
+            #   Setup to create multiple tabs
+            ####################################
+            */
             // Create li
             $("#myTabs .ui-tabs-nav").append(
                 "<li><a href='#tab-" + NUM_TABS + "'>" + "Columns: [" + fCol + ", " + eCol + "]"
@@ -321,7 +414,11 @@ $(document).ready(function () {
         }
     });
 
-    // Remove tabs
+    /*
+    #########################################
+    #   Remove one tab or multiple tabs
+    #########################################
+    */
     $("#btnRemove").click(function () {
         var indexTabs = $("#tabs").val(); // index of tab (it can be a value or an array)
         //console.log(indexTabs);
@@ -346,10 +443,14 @@ $(document).ready(function () {
         }
     });
 
-    // Update values when select a <option>
+    /*
+    ######################################################################################
+    #   Update values when select a <option>
+    #   Note: tab index from the select maybe different from tab index from the tabs
+    #   This is because the user can delete any tab, so it messes up the serial of index
+    ######################################################################################
+    */
     $("#tabs").change(function (e) {
-        // Note: tab index from the select maybe different from tab index from the tabs
-        // This is because the user can delete any tab, so it messes up the serial of index
         var tabIndex = $("#tabs").val(); // get index of tab from the select tag
         var posTab = e.target.selectedIndex;; // get index of tab from the tabs
 
@@ -381,7 +482,11 @@ $(document).ready(function () {
         }
     });
 
-    // unselect a option
+    /* 
+    ###########################
+    #   Unselect a option
+    ###########################
+    */
     $("#btnUnselected").click(function () {
         // https://stackoverflow.com/questions/39245967/how-to-unselect-options-in-select-using-jquery/39246137
         $("option").prop("selected", false)
@@ -395,7 +500,17 @@ $(document).ready(function () {
         setValueToForm("", "", "", "");
     });
 
-    // Set values to the form
+    /*
+    #################################
+    #   Function localed here
+    #################################
+    */
+
+    /*
+    ########################### 
+    #   Set values to the form
+    ###########################
+    */
     function setValueToForm(fCol, eCol, fRow, eRow) {
         $("#fCol").val(fCol);
         $("#eCol").val(eCol);
@@ -413,7 +528,11 @@ $(document).ready(function () {
         $("#eRowSlider").slider("option", "value", eRow);
     }
 
-    // Update table
+    /*
+    #################################
+    #   Update table
+    #################################
+    */
     function updateTable() {
         // Delete error message
         if ($("#update-error").length != 0) {
@@ -481,8 +600,15 @@ $(document).ready(function () {
         }
     }
 
-    // Create the table
-    // Re-used from part-1
+    /*
+    ###############################################################################
+    #   Create the table
+    #   Re-used from part-1
+    #   the last value determines if update the table or create new one
+    #   -1 is creating new table, != -1 update the table
+    #   Need to do it because the NUM_TABS can be messed up if the user delete tabs
+    ################################################################################
+    */
     function createTable(x1, x2, y1, y2, update) {
 
         //console.log("inside create table\n");
@@ -491,12 +617,17 @@ $(document).ready(function () {
         //console.log(y1);
         //console.log(y2);
         //console.log(NUM_TABS);
+
         // Create containers
 
         // Update == -1 means create table, != -1 means update the table
         if (update != -1) {
             var temp = NUM_TABS; // save tab index
             NUM_TABS = update; // set update tab index from the selection
+        }
+
+        if ($("#container" + NUM_TABS).length > 0) {
+            $("#container" + NUM_TABS).remove();
         }
 
         $("#tab-" + NUM_TABS).append("<div id='container" + NUM_TABS + "'></div>");
