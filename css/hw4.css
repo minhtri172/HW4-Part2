@@ -151,6 +151,11 @@ button, #btnGen {
     display: block;
 }
 
+/* Set invalid inputs border to red */
+#fCol.error, #eCol.error, #fRow.error, #eRow.error {
+    border-color: red;
+}
+
 /* Div contains the control part, the form and the selection*/
 #control {
     overflow: auto;
